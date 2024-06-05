@@ -1,8 +1,12 @@
 from django.test import TestCase
+
 from app.models import Client
 
 
 class ClientModelTest(TestCase):
+    """
+    Clase de tests de unidad para el modelo de cliente en la creacion y update.
+    """
     def test_can_create_and_get_client(self):
         Client.save_client(
             {
@@ -10,7 +14,7 @@ class ClientModelTest(TestCase):
                 "phone": "221555232",
                 "address": "13 y 44",
                 "email": "brujita75@hotmail.com",
-            }
+            },
         )
         clients = Client.objects.all()
         self.assertEqual(len(clients), 1)
@@ -27,7 +31,7 @@ class ClientModelTest(TestCase):
                 "phone": "221555232",
                 "address": "13 y 44",
                 "email": "brujita75@hotmail.com",
-            }
+            },
         )
         client = Client.objects.get(pk=1)
 
@@ -46,7 +50,7 @@ class ClientModelTest(TestCase):
                 "phone": "221555232",
                 "address": "13 y 44",
                 "email": "brujita75@hotmail.com",
-            }
+            },
         )
         client = Client.objects.get(pk=1)
 

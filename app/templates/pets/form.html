@@ -57,10 +57,12 @@
                         name="birthday"
                         class="form-control"
                         value="{{ pet.birthday }}"
+                        max="{% now 'Y-m-d' %}"
+
                         required/>
 
                     {% if errors.birthday %}
-                        <div id="birthday-feedback" class="invalid-feedback">
+                        <div class="invalid-feedback">
                             {{ errors.birthday }}
                         </div>
                     {% endif %}
@@ -71,25 +73,5 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var today = new Date(); // Obtiene la fecha actual
-        var year = today.getFullYear();
-        var month = (today.getMonth() + 1).toString().padStart(2, '0'); // Agrega un 0 al principio si el mes es de un solo dígito
-        var day = today.getDate().toString().padStart(2, '0'); // Agrega un 0 al principio si el día es de un solo dígito
-        var formattedToday = year + "-" + month + "-" + day; // Formatea la fecha actual en formato ISO (YYYY-MM-DD)
-    
-        var birthdayInput = document.getElementById("birthday");
-    
-        birthdayInput.max = formattedToday; // Establece la fecha máxima
-    
-        birthdayInput.addEventListener("change", function() {
-            var selectedDate = birthdayInput.value;
-            if (selectedDate > formattedToday) {
-                birthdayInput.value = formattedToday; // Si la fecha seleccionada es mayor que la fecha actual, establece la fecha actual como valor del campo
-            }
-        });
-    });
-    </script>
 
 {% endblock %}

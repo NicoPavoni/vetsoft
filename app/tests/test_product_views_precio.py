@@ -1,32 +1,35 @@
+from django.shortcuts import reverse
 from django.test import TestCase
-from django.urls import reverse
-from app.models import Product
-from django.contrib.messages import get_messages
-
-class ProductPrecioTest(TestCase):
-
-    def test_validatePrecioMenor(self):
-        product = Product.objects.create(name="Producto1", type="Tipo1", price=-15, stock=5)
-        url = reverse('products_form')
-        
-        response = self.client.post(url, {'product_id': product.id})
-
-        product.refresh_from_db()
-        self.assertEqual(product.price, 0)
-
-        messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), "Precio menor o igual a 0")
 
 
-    def test_validatePrecioMayor(self):
-        product = Product.objects.create(name="Producto1", type="Tipo1", price=15, stock=5)
-        url = reverse('products_form')
-        
-        response = self.client.post(url, {'product_id': product.id})
+class ProductTest(TestCase):
 
-        product.refresh_from_db()
-        self.assertEqual(product.price, 1)
+    """
+    Clase de test de unidad que valida que el precio de un producto sea mayor a 0.
+    
+    """
+    def test_precio_menor(self):
+            response = self.client.post(
+                reverse("products_form"),
+                data={
+                    "name": "Producto 1",
+                    "type": "Tipo 1",
+                    "price": "-15",
+                    "stock": "5",
+                },
+            )
 
-        messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(len(messages), 0)
+            self.assertContains(response, "El precio no puede ser negativo")
+
+    def test_precio_cero(self):
+            response = self.client.post(
+                reverse("products_form"),
+                data={
+                    "name": "Producto 2",
+                    "type": "Tipo 2",
+                    "price": "1A5",
+                    "stock": "10",
+                },
+            )
+
+            self.assertContains(response, "El precio debe ser un número valido")

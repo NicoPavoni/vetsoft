@@ -1,10 +1,15 @@
+from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
+
 from app.models import Product
-from django.contrib.messages import get_messages
+
 
 class ProductViewsTest(TestCase):
-
+    """
+    Clase de test de integracion que valida que el stock de un producto incremente y decremente.
+    
+    """
     def test_decrease_stock_view(self):
         # Creo un producto inicial con stock 1
         product = Product.objects.create(name="Test Product", type="Type A", price=10.0, stock=1)
