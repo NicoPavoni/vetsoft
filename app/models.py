@@ -1,6 +1,5 @@
 from datetime import datetime
 from django.db import models
-from django.core.exceptions import ValidationError
 
 
 def validate_client(data):
