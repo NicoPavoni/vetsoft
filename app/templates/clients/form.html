@@ -11,9 +11,7 @@
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
             <form class="vstack gap-3 {% if errors %}was-validated{% endif %}"
-                aria-label="Formulario de creacion de cliente"
-                method="POST"
-                action="{% url 'clients_form' %}"
+                aria-label="Formulario de creacion de cliente" method="POST" action="{% url 'clients_form' %}"
                 novalidate>
 
                 {% csrf_token %}
@@ -22,56 +20,42 @@
 
                 <div>
                     <label for="name" class="form-label">Nombre</label>
-                    <input type="text"
-                        id="name"
-                        name="name"
-                        value="{{client.name}}"
-                        class="form-control"
-                        pattern="[a-zA-ZÁÉÍÓÚáéíóúüÜ\s]*"
-                        required/>
+                    <input type="text" id="name" name="name" value="{{client.name}}" class="form-control"
+                        pattern="[a-zA-ZÁÉÍÓÚáéíóúüÜ\s]*" required />
 
                     {% if errors.name %}
-                        <div class="invalid-feedback">
-                            {{ errors.name }}
-                        </div>
+                    <div class="invalid-feedback">
+                        {{ errors.name }}
+                    </div>
                     {% endif %}
                 </div>
                 <div>
                     <label for="phone" class="form-label">Teléfono</label>
 
-                    <input type="text" placeholder="541234567890" id="phone" name="phone" class="form-control" value="{{client.phone}}" min="1"
-                    pattern="54\d*" required/>
+                    <input type="text" placeholder="541234567890" id="phone" name="phone" class="form-control"
+                        value="{{client.phone}}" min="1" pattern="54\d*" required />
 
                     {% if errors.phone %}
-                        <div class="invalid-feedback">
-                            {{ errors.phone }}
-                        </div>
+                    <div class="invalid-feedback">
+                        {{ errors.phone }}
+                    </div>
                     {% endif %}
                 </div>
-                <div>
+                <div class="form-group {% if errors.email %}has-error{% endif %}">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email"
-                        id="email"
-                        name="email"
-                        class="form-control"
-                        value="{{ client.email }}"
-                        placeholder="matiasmansilla@gmail.com"
-                        required/>
+                    <input type="email" id="email" name="email" class="form-control" value="{{ client.email }}"
+                        placeholder="matiasmansilla@gmail.com" required />
 
                     {% if errors.email %}
-                        <div class="invalid-feedback">
-                            {{ errors.email }}
-                        </div>
+                    <div class="invalid-feedback">
+                        {{ errors.email }}
+                    </div>
                     {% endif %}
-                    
+
                 </div>
                 <div>
                     <label for="address" class="form-label">Dirección</label>
-                    <input type="text"
-                        id="address"
-                        name="address"
-                        value="{{client.address}}"
-                        placeholder="1 y 57"
+                    <input type="text" id="address" name="address" value="{{client.address}}" placeholder="1 y 57"
                         class="form-control" />
 
                     <div class="invalid-feedback">
