@@ -21,7 +21,7 @@
                 <div>
                     <label for="name" class="form-label">Nombre</label>
                     <input type="text" id="name" name="name" value="{{client.name}}" class="form-control"
-                        pattern="[a-zA-Z\s]*" required />
+                        pattern="[a-zA-ZÁÉÍÓÚáéíóúüÜ\s]*" required />
 
                     {% if errors.name %}
                     <div class="invalid-feedback">
@@ -31,7 +31,9 @@
                 </div>
                 <div>
                     <label for="phone" class="form-label">Teléfono</label>
-                    <input type="text" id="phone" name="phone" class="form-control" value="{{client.phone}}" required />
+
+                    <input type="text" placeholder="541234567890" id="phone" name="phone" class="form-control"
+                        value="{{client.phone}}" min="1" pattern="54\d*" required />
 
                     {% if errors.phone %}
                     <div class="invalid-feedback">
@@ -41,19 +43,20 @@
                 </div>
                 <div class="form-group {% if errors.email %}has-error{% endif %}">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" name="email"
-                        class="form-control {% if errors.email %}is-invalid{% endif %}" value="{{ client.email }}"
-                        required />
+                    <input type="email" id="email" name="email" class="form-control" value="{{ client.email }}"
+                        placeholder="matiasmansilla@gmail.com" required />
 
                     {% if errors.email %}
                     <div class="invalid-feedback">
                         {{ errors.email }}
                     </div>
                     {% endif %}
+
                 </div>
                 <div>
                     <label for="address" class="form-label">Dirección</label>
-                    <input type="text" id="address" name="address" value="{{client.address}}" class="form-control" />
+                    <input type="text" id="address" name="address" value="{{client.address}}" placeholder="1 y 57"
+                        class="form-control" />
 
                     <div class="invalid-feedback">
                         La dirrección es opcional
