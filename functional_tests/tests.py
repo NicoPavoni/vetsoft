@@ -20,7 +20,7 @@ class PlaywrightTestCase(StaticLiveServerTestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.browser: Browser = playwright.firefox.launch(
-            headless=headless, slow_mo=int(slow_mo)
+            headless=True, slow_mo=int(slow_mo)
         )
 
     @classmethod

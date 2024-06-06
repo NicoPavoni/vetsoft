@@ -1,6 +1,6 @@
+import re
 from django.db import models
 from datetime import datetime
-
 
 def validate_client(data):
     errors = {}
@@ -14,6 +14,8 @@ def validate_client(data):
 
     if phone == "":
         errors["phone"] = "Por favor ingrese un teléfono"
+    elif not re.match("^54", phone):
+        errors["phone"] = "El teléfono debe comenzar con '54'"
 
     if email == "":
         errors["email"] = "Por favor ingrese un email"
@@ -49,7 +51,7 @@ class Client(models.Model):
     email = models.EmailField()
     address = models.CharField(max_length=100, blank=True)
 
-    def __str__(self):
+    def _str_(self):
         return self.name
 
     @classmethod
@@ -64,17 +66,26 @@ class Client(models.Model):
             phone=client_data.get("phone"),
             email=client_data.get("email"),
             address=client_data.get("address"),
+        
         )
 
         return True, None
-
+    
+   
     def update_client(self, client_data):
+        errors = validate_client(client_data)
+
+        if len(errors.keys()) > 0:
+            return False, errors
+        
         self.name = client_data.get("name", "") or self.name
         self.email = client_data.get("email", "") or self.email
         self.phone = client_data.get("phone", "") or self.phone
         self.address = client_data.get("address", "") or self.address
 
         self.save()
+        return True, None
+
 
 def validate_medicines(data):
         errors = {}

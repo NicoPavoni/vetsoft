@@ -42,7 +42,7 @@
                         name="phone"
                         class="form-control"
                         value="{{client.phone}}"
-                        required/>
+                        pattern="54\d*" required/>
 
                     {% if errors.phone %}
                         <div class="invalid-feedback">
@@ -64,6 +64,7 @@
                             {{ errors.email }}
                         </div>
                     {% endif %}
+                    
                 </div>
                 <div>
                     <label for="address" class="form-label">Dirección</label>
