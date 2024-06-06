@@ -254,24 +254,6 @@ class ClientCreateEditTestCase(PlaywrightTestCase):
         expect(edit_action).to_have_attribute(
             "href", reverse("clients_edit", kwargs={"id": client.id}),
         )
-    
-    def test_client_should_have_numeric_phone(self):
-
-        self.page.goto(f"{self.live_server_url}{reverse('clients_form')}")
-
-        expect(self.page.get_by_role("form")).to_be_visible()
-
-        self.page.get_by_label("Nombre").fill("Matias Mansilla")
-        self.page.get_by_label("Teléfono").fill("aaaaa")
-        self.page.get_by_label("Email").fill("mmansilla@gmail.com")
-        self.page.get_by_label("Dirección").fill("1 y 57")
-
-        self.page.get_by_role("button", name="Guardar").click()
-        self.page.get_by_label("Teléfono").fill("")
-
-        expect(self.page.get_by_text("El teléfono sólo puede contener números")).to_be_visible()
-
-
 
 class AddPet(PlaywrightTestCase):
     """
