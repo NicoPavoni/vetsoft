@@ -22,14 +22,16 @@ def validate_client(data):
 
     if name == "":
         errors["name"] = "Por favor ingrese un nombre"
-    elif not re.match("^[a-zA-Z\s]+$", name):
+    elif not re.match("^[a-zA-ZÁÉÍÓÚáéíóúüÜ\s]+$", name):
         errors["name"] = "El nombre solo debe contener letras y espacios"
 
     if phone == "":
         errors["phone"] = "Por favor ingrese un teléfono"
     elif not re.match("^54", phone):
         errors["phone"] = "El teléfono debe comenzar con '54'"
-
+    elif not phone.isnumeric():
+        errors["phone"] = "El teléfono sólo puede contener números"
+    
     if email == "":
         errors["email"] = "Por favor ingrese un email"
     elif email.count("@") == 0:

@@ -27,7 +27,7 @@
                         name="name"
                         value="{{client.name}}"
                         class="form-control"
-                        pattern="[a-zA-Z\s]*"
+                        pattern="[a-zA-ZÁÉÍÓÚáéíóúüÜ\s]*"
                         required/>
 
                     {% if errors.name %}
@@ -38,12 +38,9 @@
                 </div>
                 <div>
                     <label for="phone" class="form-label">Teléfono</label>
-                    <input type="text"
-                        id="phone"
-                        name="phone"
-                        class="form-control"
-                        value="{{client.phone}}"
-                        pattern="54\d*" required/>
+
+                    <input type="text" placeholder="541234567890" id="phone" name="phone" class="form-control" value="{{client.phone}}" min="1"
+                    pattern="54\d*" required/>
 
                     {% if errors.phone %}
                         <div class="invalid-feedback">
@@ -58,6 +55,7 @@
                         name="email"
                         class="form-control"
                         value="{{ client.email }}"
+                        placeholder="matiasmansilla@gmail.com"
                         required/>
 
                     {% if errors.email %}
@@ -73,6 +71,7 @@
                         id="address"
                         name="address"
                         value="{{client.address}}"
+                        placeholder="1 y 57"
                         class="form-control" />
 
                     <div class="invalid-feedback">
