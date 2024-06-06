@@ -27,6 +27,8 @@ def validate_client(data):
 
     if phone == "":
         errors["phone"] = "Por favor ingrese un teléfono"
+    elif not re.match("^54", phone):
+        errors["phone"] = "El teléfono debe comenzar con '54'"
     elif not phone.isnumeric():
         errors["phone"] = "El teléfono sólo puede contener números"
     
@@ -79,7 +81,7 @@ class Client(models.Model):
     email = models.EmailField()
     address = models.CharField(max_length=100, blank=True)
 
-    def __str__(self):
+    def _str_(self):
         return self.name
 
     @classmethod
@@ -94,10 +96,12 @@ class Client(models.Model):
             phone=client_data.get("phone"),
             email=client_data.get("email"),
             address=client_data.get("address"),
+        
         )
 
         return True, None
-
+    
+   
     def update_client(self, client_data):
         errors = validate_client(client_data)
 
@@ -110,6 +114,8 @@ class Client(models.Model):
         self.address = client_data.get("address", "") or self.address
 
         self.save()
+        return True, None
+
 
 def validate_medicines(data):
         """
