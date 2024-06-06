@@ -38,11 +38,7 @@
                 </div>
                 <div>
                     <label for="phone" class="form-label">Teléfono</label>
-                    <input type="text"
-                        id="phone"
-                        name="phone"
-                        class="form-control"
-                        value="{{client.phone}}"
+                    <input type="text" placeholder="1234567890" id="phone" name="phone" class="form-control" value="{{client.phone}}" min="1"
                         required/>
 
                     {% if errors.phone %}
@@ -58,6 +54,7 @@
                         name="email"
                         class="form-control"
                         value="{{ client.email }}"
+                        placeholder="matiasmansilla@gmail.com"
                         required/>
 
                     {% if errors.email %}
@@ -72,6 +69,7 @@
                         id="address"
                         name="address"
                         value="{{client.address}}"
+                        placeholder="1 y 57"
                         class="form-control" />
 
                     <div class="invalid-feedback">
