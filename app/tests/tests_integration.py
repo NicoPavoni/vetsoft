@@ -1,15 +1,23 @@
-from django.test import TestCase
 from django.shortcuts import reverse
+from django.test import TestCase
+
 from app.models import Client
 
 
 class HomePageTest(TestCase):
+    """
+    Clase de HomePage que valida el template 
+    """
     def test_use_home_template(self):
         response = self.client.get(reverse("home"))
         self.assertTemplateUsed(response, "home.html")
 
 
 class ClientsTest(TestCase):
+    """
+    Clase de tests de integracion de cliente.
+    
+    """
     def test_repo_use_repo_template(self):
         response = self.client.get(reverse("clients_repo"))
         self.assertTemplateUsed(response, "clients/repository.html")

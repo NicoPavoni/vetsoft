@@ -1,8 +1,13 @@
-from django.test import TestCase
 from django.shortcuts import reverse
-from app.models import Product
+from django.test import TestCase
+
 
 class ProductTest(TestCase):
+
+    """
+    Clase de test de unidad que valida que el precio de un producto sea mayor a 0.
+    
+    """
     def test_precio_menor(self):
             response = self.client.post(
                 reverse("products_form"),

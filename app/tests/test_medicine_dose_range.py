@@ -1,7 +1,15 @@
 from django.test import TestCase
+
 from app.models import Medicine
 
+
 class MedicineDoseTest(TestCase):
+    """
+    Clase de test de dosis de medicina para las mascotas.
+
+    Atributos:
+        valores para realizar el test que estan almacenados en la instancia de la clase.
+    """
 
     #Se agrega una nueva medicina con dosis 0 para verificar que se cumpla la condición de minimo 1
     def test_create_medicine_below(self):

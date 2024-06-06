@@ -1,8 +1,13 @@
 from django.test import TestCase
+
 from app.models import Product
 
-class ProductPrecioTest(TestCase):
 
+class ProductPrecioTest(TestCase):
+    """
+    Clase de test de unidad que valida que el precio de un producto sea mayor que 0.
+    
+    """
     def test_create_product(self):
         product = Product.objects.create(name="Producto_Test", type="Tipo 1", price=15, stock=50)
         self.assertEqual(product.name, "Producto_Test")

@@ -1,8 +1,19 @@
 import re
-from django.db import models
 from datetime import datetime
 
+from django.db import models
+
+
 def validate_client(data):
+    """
+    Valida los datos del cliente.
+
+    Args:
+        data: Diccionario con los datos del cliente.
+
+    Returns:
+        dict: Un diccionario con errores de validación si los hay.
+    """
     errors = {}
 
     name = data.get("name", "")
@@ -11,6 +22,8 @@ def validate_client(data):
 
     if name == "":
         errors["name"] = "Por favor ingrese un nombre"
+    elif not re.match("^[a-zA-Z\s]+$", name):
+        errors["name"] = "El nombre solo debe contener letras y espacios"
 
     if phone == "":
         errors["phone"] = "Por favor ingrese un teléfono"
@@ -25,6 +38,15 @@ def validate_client(data):
     return errors
 
 def validate_pet(data):
+    """
+    Valida los datos de la mascota.
+
+    Args:
+        data: Diccionario con los datos de la mascota.
+
+    Returns:
+        dict: Un diccionario con errores de validación si los hay.
+    """
     errors = {}
 
     name = data.get("name", "")
@@ -46,6 +68,12 @@ def validate_pet(data):
 
 
 class Client(models.Model):
+    """
+    Clase de cliente: almacena un valor y permite recuperarlo.
+
+    Atributos:
+        valor: está almacenado en la instancia de la clase.
+    """
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=15)
     email = models.EmailField()
@@ -88,6 +116,15 @@ class Client(models.Model):
 
 
 def validate_medicines(data):
+        """
+        Valida los datos de la medicina.
+
+        Args:
+            data: Diccionario con los datos de la medicina.
+
+        Returns:
+            dict: Un diccionario con errores de validación si los hay.
+        """
         errors = {}
         name = data.get("name", "")
         description = data.get("description", "")
@@ -113,6 +150,12 @@ def validate_medicines(data):
 
 
 class Medicine(models.Model):
+    """
+    Clase de medicina: almacena un valor y permite recuperarlo.
+
+    Atributos:
+        valor: está almacenado en la instancia de la clase.
+    """
     name = models.CharField(max_length=100)
     description = models.TextField()
     dose = models.IntegerField()
@@ -148,6 +191,15 @@ class Medicine(models.Model):
         self.save()
     
 def validate_products(data):
+    """
+    Valida los datos del producto.
+
+    Args:
+        data: Diccionario con los datos del producto.
+
+    Returns:
+        dict: Un diccionario con errores de validación si los hay.
+    """
     errors = {}
     name = data.get("name", "")
     type = data.get("type", "")
@@ -179,6 +231,12 @@ def validate_products(data):
     return errors
 
 class Product(models.Model):
+    """
+    Clase de producto: almacena un valor y permite recuperarlo.
+
+    Atributos:
+        valor: está almacenado en la instancia de la clase.
+    """
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
     price = models.FloatField()
@@ -198,7 +256,7 @@ class Product(models.Model):
             name=product_data.get("name"),
             type=product_data.get("type"),
             price=product_data.get("price"),
-            stock=product_data.get("stock", 0)
+            stock=product_data.get("stock", 0),
         )
         
         return True, None
@@ -220,6 +278,12 @@ class Product(models.Model):
         self.save()
 
 class Pet(models.Model):
+    """
+    Clase de mascota: almacena un valor y permite recuperarlo.
+
+    Atributos:
+        valor: está almacenado en la instancia de la clase.
+    """
     name = models.CharField(max_length=100)
     breed = models.CharField(max_length=300)
     birthday = models.DateField()
@@ -250,6 +314,15 @@ class Pet(models.Model):
         self.save()
 
 def validate_vet(data):
+        """
+        Valida los datos del veterinario.
+
+        Args:
+            data: Diccionario con los datos del veterinario.
+
+        Returns:
+            dict: Un diccionario con errores de validación si los hay.
+        """
         errors = {}
         name = data.get("name", "")
         email = data.get("email", "")
@@ -269,6 +342,12 @@ def validate_vet(data):
         return errors
 
 class Vet(models.Model):
+    """
+    Clase de veterinarios/as: almacena un valor y permite recuperarlo.
+
+    Atributos:
+        valor: está almacenado en la instancia de la clase.
+    """
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)

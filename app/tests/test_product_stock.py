@@ -1,8 +1,13 @@
 from django.test import TestCase
+
 from app.models import Product
 
-class ProductStockTest(TestCase):
 
+class ProductStockTest(TestCase):
+    """
+    Clase de test de unidad que valida que el stock de un producto incremente y decremente.
+    
+    """
     def test_create_product(self):
         product = Product.objects.create(name="Test Product", type="Type A", price=10.0, stock=100)
         self.assertEqual(product.name, "Test Product")
