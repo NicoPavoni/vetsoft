@@ -30,8 +30,10 @@ def validate_client(data):
 
     if email == "":
         errors["email"] = "Por favor ingrese un email"
+    elif not email.endswith("@vetsoft.com"):
+        errors["email"] = "El correo electrónico debe terminar en @vetsoft.com"
     elif email.count("@") == 0:
-        errors["email"] = "Por favor ingrese un email valido"
+        errors["email"] = "Por favor ingrese un email válido"
 
     return errors
 
@@ -100,14 +102,15 @@ class Client(models.Model):
         errors = validate_client(client_data)
 
         if len(errors.keys()) > 0:
-            return False, errors
+         return False, errors
         
-        self.name = client_data.get("name", "") or self.name
-        self.email = client_data.get("email", "") or self.email
-        self.phone = client_data.get("phone", "") or self.phone
-        self.address = client_data.get("address", "") or self.address
+        self.name = client_data.get("name", self.name)
+        self.email = client_data.get("email", self.email)
+        self.phone = client_data.get("phone", self.phone)
+        self.address = client_data.get("address", self.address)
 
         self.save()
+        return True, None
 
 def validate_medicines(data):
         """
