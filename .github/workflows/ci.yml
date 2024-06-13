@@ -27,7 +27,7 @@ jobs:
               run: ruff check
 
             - name: Run unit and integration tests
-              run: python manage.py test app
+              run: python manage.py test app/tests
 
             - name: Check coverage
               run: coverage report --fail-under=20
