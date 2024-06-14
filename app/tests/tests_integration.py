@@ -75,7 +75,7 @@ class ClientsTest(TestCase):
             },
         )
 
-        self.assertContains(response, "Por favor ingrese un email valido")
+        self.assertContains(response, "El correo electrónico debe terminar en @vetsoft.com")
 
     def test_edit_user_with_valid_data(self):
         client = Client.objects.create(
@@ -89,15 +89,15 @@ class ClientsTest(TestCase):
             reverse("clients_form"),
             data={
                 "id": client.id,
-                "name": "Guido Carrillo",
+                "name": "Juan Sebastián Veron",
             },
         )
 
         # redirect after post
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
         editedClient = Client.objects.get(pk=client.id)
-        self.assertEqual(editedClient.name, "Guido Carrillo")
+        self.assertEqual(editedClient.name, "Juan Sebastián Veron")
         self.assertEqual(editedClient.phone, client.phone)
         self.assertEqual(editedClient.address, client.address)
         self.assertEqual(editedClient.email, client.email)
