@@ -27,11 +27,17 @@ def validate_client(data):
 
     if phone == "":
         errors["phone"] = "Por favor ingrese un teléfono"
-
+    elif not re.match("^54", phone):
+        errors["phone"] = "El teléfono debe comenzar con '54'"
+    elif not phone.isnumeric():
+        errors["phone"] = "El teléfono sólo puede contener números"
+    
     if email == "":
         errors["email"] = "Por favor ingrese un email"
+    elif not email.endswith("@vetsoft.com"):
+        errors["email"] = "El correo electrónico debe terminar en @vetsoft.com"
     elif email.count("@") == 0:
-        errors["email"] = "Por favor ingrese un email valido"
+        errors["email"] = "Por favor ingrese un email válido"
 
     return errors
 
@@ -77,7 +83,7 @@ class Client(models.Model):
     email = models.EmailField()
     address = models.CharField(max_length=100, blank=True)
 
-    def __str__(self):
+    def _str_(self):
         return self.name
 
     @classmethod
@@ -92,22 +98,25 @@ class Client(models.Model):
             phone=client_data.get("phone"),
             email=client_data.get("email"),
             address=client_data.get("address"),
+        
         )
 
         return True, None
-
+    
+   
     def update_client(self, client_data):
         errors = validate_client(client_data)
 
         if len(errors.keys()) > 0:
-            return False, errors
+         return False, errors
         
-        self.name = client_data.get("name", "") or self.name
-        self.email = client_data.get("email", "") or self.email
-        self.phone = client_data.get("phone", "") or self.phone
-        self.address = client_data.get("address", "") or self.address
+        self.name = client_data.get("name", self.name)
+        self.email = client_data.get("email", self.email)
+        self.phone = client_data.get("phone", self.phone)
+        self.address = client_data.get("address", self.address)
 
         self.save()
+        return True, None
 
 def validate_medicines(data):
         """

@@ -220,7 +220,7 @@ class ClientCreateEditTestCase(PlaywrightTestCase):
         divs = self.page.locator(".invalid-feedback").all()
         
         textos = [div.text_content() for div in divs]
-        assert "Por favor ingrese un email valido" in str(textos)
+        assert "El correo electrónico debe terminar en @vetsoft.com" in str(textos)
 
     def test_should_be_able_to_edit_a_client(self):
         client = Client.objects.create(
