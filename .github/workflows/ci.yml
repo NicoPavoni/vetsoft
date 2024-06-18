@@ -29,9 +29,11 @@ jobs:
             - name: Run unit and integration  tests
               run: python manage.py test app/tests
 
-            - name: Check coverage
-              run: coverage run --source="./app" --omit="./app/migrations/**" manage.py test app
-              run: coverage report --fail-under=19
+            - name: Prepare coverage
+              run: coverage run --source="./app" --omit="./app/migrations/**" ma                   nage.py test app
+
+            - name: Check Coverage  
+              run: coverage report --fail-under=20
 
             - name: Run e2e tests
               run: python manage.py test functional_tests
