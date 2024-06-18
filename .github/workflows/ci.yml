@@ -30,7 +30,7 @@ jobs:
               run: python manage.py test app/tests
 
             - name: Check coverage
-              run: coverage report --fail-under=20
+              run: coverage run --source="./app" --omit="./app/migrations/**" manage.py test app | coverage report --fail-under=20
 
             - name: Run e2e tests
               run: python manage.py test functional_tests
