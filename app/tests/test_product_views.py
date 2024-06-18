@@ -25,7 +25,7 @@ class ProductViewsTest(TestCase):
         # Verifico que se haya generado el mensaje de producto sin stock
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), "Test Product:  Fuera de stock.")
+        self.assertEqual(str(messages[0]), "Test Product: Fuera de stock.")
 
     def test_increase_stock_view(self):
         # Creo un producto inicial con stock 0
