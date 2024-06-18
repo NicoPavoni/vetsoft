@@ -26,10 +26,13 @@ jobs:
             - name: Run static test
               run: ruff check
 
-            - name: Run unit and integration tests
+            - name: Run unit and integration  tests
+              run: python manage.py test app/tests
+
+            - name: Prepare coverage
               run: coverage run --source="./app" --omit="./app/migrations/**" manage.py test app
 
-            - name: Check coverage
+            - name: Check Coverage  
               run: coverage report --fail-under=20
 
             - name: Run e2e tests
