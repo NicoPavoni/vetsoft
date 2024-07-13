@@ -1,8 +1,8 @@
+import re
+
 from django.test import TestCase
 
 from app.models import Client
-
-import re
 
 
 class ClientModelTest(TestCase):
