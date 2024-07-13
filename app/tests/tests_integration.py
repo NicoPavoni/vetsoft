@@ -101,3 +101,16 @@ class ClientsTest(TestCase):
         self.assertEqual(editedClient.phone, client.phone)
         self.assertEqual(editedClient.address, client.address)
         self.assertEqual(editedClient.email, client.email)
+
+    def test_cant_create_a_client_with_numbers_in_name(self):
+        response = self.client.post(
+            reverse("clients_form"),
+            data={
+                "name": "Juan Sebastian Veron77",
+                "phone": "54221555232",
+                "address": "13 y 44",
+                "email": "brujita75",
+            },
+        )
+
+        self.assertContains(response, "El nombre solo debe contener letras y espacios")

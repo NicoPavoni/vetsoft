@@ -1,3 +1,5 @@
+import re
+
 from django.test import TestCase
 
 from app.models import Client
@@ -67,4 +69,14 @@ class ClientModelTest(TestCase):
 
         self.assertEqual(client_updated.phone, "54221555232")
 
-    
+    def test_cant_create_a_client_with_numbers_in_name (self):
+        response = Client.save_client(
+            {
+                "name": "Juan Sebastian Veron777",
+                "phone": "54221555232",
+                "address": "13 y 44",
+                "email": "brujita75@vetsoft.com",
+            },
+        )
+
+        self.assertTrue(re.match("^[a-zA-ZÁÉÍÓÚáéíóúüÜ\s]+$", response[1]['name']), "El nombre solo debe contener letras y espacios")
