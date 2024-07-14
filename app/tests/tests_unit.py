@@ -78,5 +78,15 @@ class ClientModelTest(TestCase):
                 "email": "brujita75@vetsoft.com",
             },
         )
-
         self.assertTrue(re.match("^[a-zA-ZÁÉÍÓÚáéíóúüÜ\s]+$", response[1]['name']), "El nombre solo debe contener letras y espacios")
+
+    def test_cant_create_a_client_with_letters_in_phone (self):
+        response = Client.save_client(
+            {
+                "name": "Juan Sebastian Veron",
+                "phone": "542215552qdsfghj",
+                "address": "13 y 44",
+                "email": "brujita75@vetsoft.com",
+            },
+        )
+        self.assertFalse(re.match("^[0-9]+$", response[1]['phone']), "El teléfono sólo puede contener números")
