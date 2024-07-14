@@ -114,3 +114,16 @@ class ClientsTest(TestCase):
         )
 
         self.assertContains(response, "El nombre solo debe contener letras y espacios")
+
+    def test_cant_create_a_client_with_letters_in_phone (self):
+        response = self.client.post(
+            reverse("clients_form"),
+            data={
+                "name": "Juan Sebastian Veron",
+                "phone": "542215552qdsfghj",
+                "address": "13 y 44",
+                "email": "brujita75",
+            },
+        )
+
+        self.assertContains(response, "El teléfono sólo puede contener números")

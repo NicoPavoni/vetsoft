@@ -290,6 +290,23 @@ class ClientCreateEditTestCase(PlaywrightTestCase):
         textos = [div.text_content() for div in divs]
         assert "El nombre solo debe contener letras y espacios" in str(textos)
 
+    def test_cant_create_a_client_with_letters_in_phone(self):
+        self.page.goto(f"{self.live_server_url}{reverse('clients_form')}")
+
+        expect(self.page.get_by_role("form")).to_be_visible()
+
+        self.page.get_by_label("Nombre").fill("Juan Perez")
+        self.page.get_by_label("Teléfono").fill("aaaaa")
+        self.page.get_by_label("Email").fill("testMail@vetsoft.com")
+        self.page.get_by_label("Dirección").fill("1 y 57")
+
+        self.page.get_by_role("button", name="Guardar").click()
+
+        divs = self.page.locator(".invalid-feedback").all()
+        
+        textos = [div.text_content() for div in divs]
+        assert "El teléfono sólo puede contener números" in str(textos)
+
 
 class AddPet(PlaywrightTestCase):
     """

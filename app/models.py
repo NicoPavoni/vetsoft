@@ -27,7 +27,7 @@ def validate_client(data):
 
     if phone == "":
         errors["phone"] = "Por favor ingrese un teléfono"
-    elif not re.match("[0-9]", phone):
+    elif not re.match("^[0-9]+$", phone):
         errors["phone"] = "El teléfono sólo puede contener números"
     elif not re.match("^54", phone):
         errors["phone"] = "El teléfono debe comenzar con '54'"
